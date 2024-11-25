@@ -5,6 +5,7 @@ const createEventsTableQuery = `
 CREATE TABLE IF NOT EXISTS bridging_events (
     id VARCHAR(300) PRIMARY KEY,
     amount VARCHAR(255) NOT NULL,
+    readable_amount VARCHAR(255) NOT NULL,
     token VARCHAR(255) NOT NULL,
     token_name VARCHAR(255),
     token_symbol VARCHAR(255),

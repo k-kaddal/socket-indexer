@@ -8,9 +8,9 @@ class EventRepository {
     const query = `
         INSERT INTO bridging_events (
           id, amount, token, to_chain_id, bridge_name, sender, receiver,
-          metadata, block_number, transaction_hash, log_index, token_name, token_symbol, decimals
+          metadata, block_number, transaction_hash, log_index, token_name, token_symbol, decimals, readable_amount
         )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
       `;
 
     try {
@@ -29,6 +29,7 @@ class EventRepository {
         validatedEvent.tokenName || null,
         validatedEvent.tokenSymbol || null,
         validatedEvent.decimals || null,
+        validatedEvent.readableAmount || null,
       ]);
       logger.debug(`[database] : Event ${validatedEvent.id} saved`);
     } catch (error: any) {

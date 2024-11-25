@@ -8,7 +8,7 @@ It is built with modularity in mind. Each module (`event-listener`, `data-proces
 
 1. `event-listener`: Listens to SocketGate SocketBridge events and publishes them for `data-processor` to consume.
 
-2. `data-processor`: Processes raw events, enriches them with token Metadata and readable amount, stores them in the database, and publishes enriched events for the `api-server` to broadcast.
+2. `data-processor`: Processes raw events, enriches them with `token_name`, `token_symbol` and readable `amount`, readable `bridge_name`, stores them in the database, and publishes enriched events for the `api-server` to broadcast.
 
 3. `api-server`: Provides two endpoints for clients:
 

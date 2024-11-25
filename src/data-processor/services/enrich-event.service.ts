@@ -1,7 +1,10 @@
 import {TRawEvent, TEvent, RawEventSchema} from "@shared/models";
 import logger from "@shared/logger";
 import {fetchTokenMetadata} from "./fetch-token-metadata.service";
-import {amountToReadable} from "@shared/utils/conversions-util";
+import {
+  amountToReadable,
+  bridgeToReadable,
+} from "@shared/utils/conversions-util";
 
 async function enrichEvent(rawEvent: TRawEvent): Promise<TEvent> {
   try {
@@ -10,18 +13,22 @@ async function enrichEvent(rawEvent: TRawEvent): Promise<TEvent> {
     // Get Enrich event with token metadata
     const tokenMetadata = await fetchTokenMetadata(rawEvent.token);
 
-    // convert amount to
+    // convert amount to readable format
     const readableAmount = tokenMetadata?.decimals
       ? amountToReadable(validatedRawEvent.amount, tokenMetadata.decimals)
       : validatedRawEvent.amount;
 
+    // convert bridge name to readable format using route identifier
+    const readableBridgeName = bridgeToReadable(rawEvent.bridgeName);
+
     const enrichedEvent: TEvent = {
       ...validatedRawEvent,
       id: `${validatedRawEvent.transactionHash}-${validatedRawEvent.logIndex}`,
-      amount: readableAmount.toString(),
+      readableAmount: readableAmount.toString(),
       tokenName: tokenMetadata?.name,
       tokenSymbol: tokenMetadata?.symbol,
       decimals: tokenMetadata?.decimals,
+      bridgeName: readableBridgeName,
     };
 
     return enrichedEvent;
