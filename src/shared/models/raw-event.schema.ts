@@ -3,7 +3,7 @@ import {z} from "zod";
 export const RawEventSchema = z.object({
   amount: z.string(),
   token: z.string(),
-  toChainId: z.string(),
+  toChainId: z.number(),
   bridgeName: z.string(),
   sender: z.string(),
   receiver: z.string(),

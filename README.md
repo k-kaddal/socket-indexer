@@ -8,11 +8,11 @@ It is built with modularity in mind. Each module (`event-listener`, `data-proces
 
 1. `event-listener`: Listens to SocketGate SocketBridge events and publishes them for `data-processor` to consume.
 
-2. `data-processor`: Processes raw events, enriches them with token Metadata, stores them in the database, and publishes enriched events for the `api-server` to consume.
+2. `data-processor`: Processes raw events, enriches them with token Metadata and readable amount, stores them in the database, and publishes enriched events for the `api-server` to broadcast.
 
 3. `api-server`: Provides two endpoints for clients:
 
-   - `api/v1/events/stream`: Stream real-time enriched events, as a message consumer.
+   - `api/v1/events/stream`: Stream real-time enriched events.
    - `api/v1/events/:id`: Fetch enriched event by id from database.
      (here the id is concat of `transactionHas-index`)
 
@@ -59,8 +59,9 @@ make drop-db
 ## Areas for Improvement
 
 - `socket-indexer`: [] Separate each module into its own container for isolation and scaling.
+- `data-processor`: [] handle DLQ so that nack for database storing, but ack for streaming.
 - `api-server`: [] Improve error handling and request/response middlewares.
 - `api-server`: [] Add `api/v1/events` to getEvents with indexed cursor pagination
-- `data-processor`: [] Enhance the data enrichment process with more metadata
+- `data-base`: [] create a container for migrations.
 
 ---

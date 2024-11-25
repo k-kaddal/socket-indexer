@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS bridging_events (
     token_name VARCHAR(255),
     token_symbol VARCHAR(255),
     decimals INT,
-    to_chain_id VARCHAR(255) NOT NULL,
+    to_chain_id INT NOT NULL,
     bridge_name VARCHAR(255) NOT NULL,
     sender VARCHAR(255) NOT NULL,
     receiver VARCHAR(255) NOT NULL,

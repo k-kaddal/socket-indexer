@@ -17,7 +17,7 @@ async function handleSocketBridgeEvent(
     const rawEvent: TRawEvent = RawEventSchema.parse({
       amount: amount.toString(),
       token,
-      toChainId: toChainId.toString(),
+      toChainId: Number(toChainId),
       bridgeName,
       sender,
       receiver,
@@ -30,7 +30,7 @@ async function handleSocketBridgeEvent(
     await MessageService.publish(EQueues.RAW_EVENTS, rawEvent);
 
     logger.debug(
-      `[event-listener]: Transaction Hash - ${rawEvent.transactionHash}, Block Number - ${rawEvent.blockNumber}`
+      `[event-listener]: Block Number - ${rawEvent.blockNumber}, Transaction Hash - ${rawEvent.transactionHash}, index - ${rawEvent.logIndex}`
     );
   } catch (error: any) {
     logger.error(`Error handling SocketBridge event: ${error.message}`);

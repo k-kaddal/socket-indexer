@@ -12,7 +12,7 @@ export async function consumeEnrichedEvent(): Promise<void> {
       try {
         const enrichedEvent = JSON.parse(msg.content.toString());
         broadcastEvent(enrichedEvent);
-        logger.debug(`[api-server]: event ${enrichedEvent.id} broadcasted`);
+        logger.debug(`[api-server]: Event ${enrichedEvent.id} broadcasted`);
       } catch (error) {
         logger.error("Error broadcasting enriched event:", error);
       }
